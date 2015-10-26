@@ -1,0 +1,26 @@
+<div class="bs-example" data-example-id="striped-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Data de nascimento</th>
+          <th>Sexo</th>
+          <th>Singular</th>
+        </tr>
+      </thead>
+      <tbody>
+      	<% @beneficiarios.each do |beneficiario| %>
+	        <tr>
+	          <th scope="row"><%= beneficiario["codigo"] %></th>
+	          <td><%= beneficiario["nome"] %></td>
+	          <td><%= beneficiario["cpf"] %></td>
+	          <td><%= beneficiario["data_de_nascimento"] %></td>
+	          <td><%= beneficiario["sexo"] %></td>
+	          <td><%= beneficiario["singular"]["nome"] %></td>
+	        </tr>
+	      <% end %>
+      </tbody>
+    </table>
+  </div>
