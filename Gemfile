@@ -33,3 +33,5 @@ gem 'faraday'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
+gem 'sso_cliente'
+
