@@ -1,17 +1,15 @@
 class BeneficiariosController < ApplicationController
 
-	before_action :set_connection
-
 	def index
-		@response = @conn.get do |req|
+		@response = $api_cadusu.get do |req|
 			term = params[:q]
 			req.url "/api/beneficiarios/by_nome_ou_codigo?q=#{term}"
 			req.headers['Content-Type'] = 'application/json'
 		end
 		if @response.status == 200
-			@beneficiarios = parse_json[:beneficiarios]
+			@beneficiarios = parse_response_api[:beneficiarios]
 		elsif @response.status == 429
-			flash[:danger] = parse_errors
+			flash[:danger] = parse_errors_api
 			render :unauthorized
 		else
 			@beneficiarios = []
@@ -19,19 +17,11 @@ class BeneficiariosController < ApplicationController
 	end
 
 	private
-
-	def set_connection
-		@conn = Faraday.new(url: ENV["CADUSU_API_URL"]) do |faraday|
-			faraday.request :url_encoded
-			faraday.adapter Faraday.default_adapter
-		end
-	end
-
-	def parse_json
+	def parse_response_api
 		JSON.parse(@response.body).symbolize_keys!
 	end
 
-	def parse_errors
+	def parse_errors_api
 		JSON.parse(@response.body)["error"]
 	end
 end
