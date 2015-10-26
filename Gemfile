@@ -23,5 +23,13 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :production do
+	gem 'rails_12factor'
+end
+
 gem 'faraday'
+
+# Configura paginação
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 

@@ -4,7 +4,8 @@ class BeneficiariosController < ApplicationController
 
 	def index
 		@response = @conn.get do |req|
-			req.url '/api/beneficiarios/by_nome_ou_codigo?q=joao'
+			term = params[:q]
+			req.url "/api/beneficiarios/by_nome_ou_codigo?q=#{term}"
 			req.headers['Content-Type'] = 'application/json'
 		end
 		if @response.status == 200

@@ -1,4 +1,21 @@
-<div class="bs-example" data-example-id="striped-table">
+<br/>
+<div class="row">
+	<%= form_tag beneficiarios_path, method: :get do %>
+		<div class="row">
+	    <div class="col-lg-6">
+	      <div class="input-group">
+	      	<%= text_field_tag :q, nil, class: "form-control", placeholder: "Buscar beneficiários", value: params[:q] %>
+	        <span class="input-group-btn">
+	        	<%= button_tag "Buscar", class: "btn btn-default" %>
+	        </span>
+	      </div><!-- /input-group -->
+	    </div><!-- /.col-lg-6 -->
+	  </div><!-- /.row -->
+	<% end %>
+</div>
+<br/>
+<div class="row">
+	<div class="bs-example" data-example-id="striped-table">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -24,3 +41,4 @@
       </tbody>
     </table>
   </div>
+</div><!-- /.row -->
