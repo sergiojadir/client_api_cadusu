@@ -1,15 +1,17 @@
 class BeneficiariosController < ApplicationController
 
+	before_action :set_connection, only: [:index]
+
 	def index
-		@response = $api_cadusu.get do |req|
-			term = params[:q]
-			req.url "/api/beneficiarios/by_nome_ou_codigo?q=#{term}"
-			req.headers['Content-Type'] = 'application/json'
-		end
+		@response = @conn.get_beneficiario_por_nome_ou_codigo(params[:q])
+
 		if @response.status == 200
 			@beneficiarios = parse_response_api[:beneficiarios]
 		elsif @response.status == 429
 			flash[:danger] = parse_errors_api
+			render :unauthorized
+		elsif @response.status == 401
+			flash[:danger] = "Não autorizado"
 			render :unauthorized
 		else
 			@beneficiarios = []
@@ -23,5 +25,9 @@ class BeneficiariosController < ApplicationController
 
 	def parse_errors_api
 		JSON.parse(@response.body)["error"]
+	end
+
+	def set_connection
+		@conn = Cadusu::Api.new(ENV["APP_SECRET"], ENV["ACCESS_TOKEN"])
 	end
 end

@@ -16,6 +16,7 @@ group :development, :test do
   gem 'byebug'
   gem 'debug_unimedrj'
   gem 'dotenv-rails'
+  gem 'pry-rails'
 end
 
 group :development do
