@@ -33,7 +33,7 @@
 	          <th scope="row"><%= beneficiario["codigo"] %></th>
 	          <td><%= beneficiario["nome"] %></td>
 	          <td><%= beneficiario["cpf"] %></td>
-	          <td><%= beneficiario["data_de_nascimento"] %></td>
+	          <td><%= I18n.l(beneficiario["data_de_nascimento"].to_date) %></td>
 	          <td><%= beneficiario["sexo"] %></td>
 	          <td><%= beneficiario["singular"]["nome"] %></td>
 	        </tr>
