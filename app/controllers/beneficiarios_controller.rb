@@ -5,16 +5,14 @@ class BeneficiariosController < ApplicationController
 	def index
 		@response = @conn.get_beneficiario_por_nome_ou_codigo(params[:q])
 
-		if @response.status == 200
-			@beneficiarios = parse_response_api[:beneficiarios]
-		elsif @response.status == 429
+		if @response.status == 429
 			flash[:danger] = parse_errors_api
 			render :unauthorized
-		elsif @response.status == 401
-			flash[:danger] = "Não autorizado"
+		elsif @response.status == 511
+			flash[:danger] = parse_errors_api
 			render :unauthorized
 		else
-			@beneficiarios = []
+			@beneficiarios = parse_response_api[:beneficiarios]
 		end
 	end
 
