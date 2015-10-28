@@ -15,7 +15,7 @@ module Cadusu
 
 		private
 		def http_service_faraday
-			@conn = Faraday.new(url: ENV["CADUSU_API_URL"]) do |faraday|
+			Faraday.new(url: ENV["CADUSU_API_URL"]) do |faraday|
 				faraday.use FaradayMiddleware::ParseJson, content_type: 'application/json'
 				faraday.request :url_encoded
 				faraday.adapter Faraday.default_adapter

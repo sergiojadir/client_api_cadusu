@@ -16,7 +16,7 @@
       <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
       <div id="navbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Lista de Beneficiários</a></li>
+          <li class="<%= "active" if params[:controller]=='beneficiarios'%>"><a href="<%= beneficiarios_path %>">Lista de Beneficiários</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
