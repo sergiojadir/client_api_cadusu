@@ -1,26 +1,45 @@
-<div class="bs-example" data-example-id="striped-table">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Data de nascimento</th>
-          <th>Sexo</th>
-          <th>Singular</th>
-        </tr>
-      </thead>
-      <tbody>
-      	<% @beneficiarios.each do |beneficiario| %>
+<div class="content-body">
+	<div class="row">
+		<%= form_tag beneficiarios_path, method: :get do %>
+			<div class="row">
+		    <div class="col-lg-6">
+		      <div class="input-group">
+		      	<%= text_field_tag :q, nil, class: "form-control", placeholder: "Buscar beneficiários", value: params[:q] %>
+		        <span class="input-group-btn">
+		        	<%= button_tag "Buscar", class: "btn btn-default" %>
+		        </span>
+		      </div><!-- /input-group -->
+		    </div><!-- /.col-lg-6 -->
+		  </div><!-- /.row -->
+		<% end %>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="bs-example" data-example-id="striped-table">
+	    <table class="table table-striped">
+	      <thead>
 	        <tr>
-	          <th scope="row"><%= beneficiario["codigo"] %></th>
-	          <td><%= beneficiario["nome"] %></td>
-	          <td><%= beneficiario["cpf"] %></td>
-	          <td><%= beneficiario["data_de_nascimento"] %></td>
-	          <td><%= beneficiario["sexo"] %></td>
-	          <td><%= beneficiario["singular"]["nome"] %></td>
+	          <th>Código</th>
+	          <th>Nome</th>
+	          <th>CPF</th>
+	          <th>Data de nascimento</th>
+	          <th>Sexo</th>
+	          <th>Singular</th>
 	        </tr>
-	      <% end %>
-      </tbody>
-    </table>
-  </div>
+	      </thead>
+	      <tbody>
+	      	<% @beneficiarios.each do |beneficiario| %>
+		        <tr>
+		          <th scope="row"><%= beneficiario["codigo"] %></th>
+		          <td><%= beneficiario["nome"] %></td>
+		          <td><%= beneficiario["cpf"] %></td>
+		          <td><%= I18n.l(beneficiario["data_de_nascimento"].to_date) %></td>
+		          <td><%= beneficiario["sexo"] %></td>
+		          <td><%= beneficiario["singular"]["nome"] %></td>
+		        </tr>
+		      <% end %>
+	      </tbody>
+	    </table>
+	  </div>
+	</div><!-- /.row -->
+</div>

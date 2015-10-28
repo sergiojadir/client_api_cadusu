@@ -1,36 +1,23 @@
 class BeneficiariosController < ApplicationController
 
-	before_action :set_connection
+	before_action :set_connection, only: [:index]
 
 	def index
-		@response = @conn.get do |req|
-			req.url '/api/beneficiarios/by_nome_ou_codigo?q=joao'
-			req.headers['Content-Type'] = 'application/json'
-		end
-		if @response.status == 200
-			@beneficiarios = parse_json[:beneficiarios]
-		elsif @response.status == 429
-			flash[:danger] = parse_errors
+		@response = @conn.get_beneficiario_por_nome_ou_codigo(params[:q])
+
+		if @response.status == 429
+			flash[:danger] = @response.body["error"]
+			render :unauthorized
+		elsif @response.status == 511
+			flash[:danger] = @response.body["error"]
 			render :unauthorized
 		else
-			@beneficiarios = []
+			@beneficiarios = @response.body["beneficiarios"]
 		end
 	end
 
 	private
-
 	def set_connection
-		@conn = Faraday.new(url: ENV["CADUSU_API_URL"]) do |faraday|
-			faraday.request :url_encoded
-			faraday.adapter Faraday.default_adapter
-		end
-	end
-
-	def parse_json
-		JSON.parse(@response.body).symbolize_keys!
-	end
-
-	def parse_errors
-		JSON.parse(@response.body)["error"]
+		@conn = Cadusu::Api.new(ENV["APP_SECRET"], ENV["ACCESS_TOKEN"])
 	end
 end
