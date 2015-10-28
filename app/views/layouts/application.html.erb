@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Client Api Cadusu</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
-        <a class="navbar-brand" href="#">Cliente Api Cadusu</a>
+  <head>
+    <title>Client Api Cadusu</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+  	<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+          <a class="navbar-brand" href="#">Cliente Api Cadusu</a>
+        </div>
+        <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+        <div id="navbar">
+          <ul class="nav navbar-nav">
+            <li class="<%= "active" if params[:controller]=='beneficiarios'%>"><a href="<%= beneficiarios_path %>">Lista de Beneficiários</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown <%= "active" if params[:controller]=='sso_cliente/users'%>">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= "Olá #{current_user.email}" %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Editar", edit_user_path(current_user), {data: {no_turbolink: true}} %></li>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to "Sair", destroy_user_session_path, :method=>'delete' %></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
-      <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
-      <div id="navbar">
-        <ul class="nav navbar-nav">
-          <li class="<%= "active" if params[:controller]=='beneficiarios'%>"><a href="<%= beneficiarios_path %>">Lista de Beneficiários</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= "Olá #{current_user.email}" %> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Editar", edit_user_path(current_user), {data: {no_turbolink: true}} %></li>
-              <li role="separator" class="divider"></li>
-              <li><%= link_to "Sair", destroy_user_session_path, :method=>'delete' %></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
-	<div class="container">
-		<%= yield %>
-	</div>
-
-</body>
+    </nav>
+  	<div class="container">
+  		<%= yield %>
+  	</div>
+  </body>
 </html>
