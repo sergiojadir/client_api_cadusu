@@ -39,3 +39,5 @@ gem 'sso_cliente'
 
 gem 'faraday_middleware'
 
+gem 'puma'
+gem 'foreman'
