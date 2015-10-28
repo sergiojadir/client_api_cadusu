@@ -5,6 +5,7 @@ class BeneficiariosController < ApplicationController
 	def index
 		@beneficiarios = []
 		return @beneficiarios unless params[:q]
+		
 		@response = @conn.get_beneficiario_por_nome_ou_codigo(params[:q])
 
 		if @response.status == 429
@@ -14,7 +15,8 @@ class BeneficiariosController < ApplicationController
 			flash[:danger] = "O servidor retornou o seguinte erro: #{@response.body['error']}"
 			render :unauthorized
 		else
-			@beneficiarios = Kaminari.paginate_array(@response.body["beneficiarios"]).page(params[:page]).per(10)
+			beneficiarios = @response.body["beneficiarios"]
+			@beneficiarios = Kaminari.paginate_array(beneficiarios).page(params[:page]).per(10)
 		end
 	end
 
