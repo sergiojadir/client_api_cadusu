@@ -25,7 +25,7 @@ module Cadusu
 		def connection(app_secret, access_token)
 			conn = http_service_faraday
 			conn.headers['Content-Type'] = 'application/json'
-			conn.headers['App-Secret'] = app_secret
+			conn.headers['Cadusu-Api-Key'] = app_secret
 			conn.headers['Authorization'] = digest_tokens(app_secret, access_token)
 			conn
 		end
