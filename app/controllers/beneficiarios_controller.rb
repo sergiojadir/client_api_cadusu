@@ -4,7 +4,7 @@ class BeneficiariosController < ApplicationController
 
 	def index
 		@beneficiarios = []
-		return [] unless params[:q]
+		return @beneficiarios unless params[:q]
 		@response = @conn.get_beneficiario_por_nome_ou_codigo(params[:q])
 
 		if @response.status == 429
